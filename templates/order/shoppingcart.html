@@ -38,7 +38,7 @@
         <!-- row start -->
         <div class="row">
 
-            
+            {%if shopcart%}
             <div class="col-md-8">
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -115,7 +115,10 @@
 
         </div>
         <!-- row end -->
-
+        {% else %}
+        <div style="margin-bottom: 400px;"><h1 class="text-center" > Sepet Boş</h1></div>
+        
+        {% endif %}
     </section>
     <!-- shop section end -->
 

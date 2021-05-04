@@ -80,12 +80,7 @@
                     </a></li>
 
                     {% if user.is_authenticated %}
-                    <img
-                            src="{{ user.image.url }"
-                            class="rounded-circle z-depth-0 mt-1"
-                            alt="avatar image"
-                            height="35"
-                        />
+                    
                     <li class="nav-item">
                         
                         <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">({{ user.username }}) 
