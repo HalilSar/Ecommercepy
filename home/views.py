@@ -46,11 +46,14 @@ def contact(request):
             data.save()  #save data to table
             # messages.success(request,"Your message has ben sent. Thank you for your message.")
             return HttpResponseRedirect('/contact')
+        else:
+              return HttpResponse(form.errors)   
    else:      
         form = ContactForm
         settings=Setting.objects.get(id=1)
         context={'settings':settings,'form':form  }
-        return render(request, 'home/contact.html', context)   
+        return render(request, 'home/contact.html', context)
+      
 
 def login_view(request):
     if request.method == 'POST':

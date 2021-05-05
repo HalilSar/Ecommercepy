@@ -61,13 +61,21 @@ class ContactForm(ModelForm):
     class Meta:
         model = ContactFormMessage
         fields = ['name', 'email', 'subject','message']
+        labels = {
+        "name": "İsim",
+        "surname": "Soyisim",
+        "phone": "Telefon",
+        "subject": "Konu",
+        "email": "Email",
+        "message": "Mesaj",
+        }
         widgets = {
-            'name'   : TextInput(attrs={'class': 'form-control input-lg','placeholder':'Your Name*'}),
-            'surname'   : TextInput(attrs={'class': 'form-control input-lg','placeholder':'SurName*'}),
-            'phone'   : TextInput(attrs={'class': 'form-control input-lg','placeholder':'Your Phone'}),
-            'subject' : TextInput(attrs={'class': 'form-control input-lg','placeholder':'Subject'}),
-            'email'   : TextInput(attrs={'class': 'form-control input-lg','placeholder':'Your Email'}),
-            'message' : Textarea(attrs={'class': 'form-control','placeholder':'Your Message*','rows':'12'}),
+            'name'   : TextInput(attrs={'class': 'form-control input-lg','placeholder':'İsim*'}),
+            'surname'   : TextInput(attrs={'class': 'form-control input-lg','placeholder':'Soyisim*'}),
+            'phone'   : TextInput(attrs={'class': 'form-control input-lg','placeholder':'Telefon'}),
+            'subject' : TextInput(attrs={'class': 'form-control input-lg','placeholder':'Konu'}),
+            'email'   : TextInput(attrs={'class': 'form-control input-lg','placeholder':'Email'}),
+            'message' : Textarea(attrs={'class': 'form-control','placeholder':'Mesajınız*','rows':'12'}),
         }
 
 class UserProfile(models.Model):

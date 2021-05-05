@@ -1,7 +1,22 @@
 {%extends 'layout.html'%}
 {%load static%}
 {% block content %}
-
+<section id="title" class="container-fluid wow fadeInDown">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <h1>İletişime Geç <small>Bizimle</small></h1>
+            </div>
+            <div class="col-xs-6 text-right breadcrumbs">
+                <ul class="list-inline list-unstyled">
+                    <li><a href="index-2.html">Ana Sayfa</a></li>
+                    <li>/</li>
+                    <li>Ürünler</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
 <section id="content">
 
     <div class="container">
@@ -54,7 +69,7 @@
                     {% csrf_token %}
                     {{ form.as_p }}
                     <div class="form-group col-xs-12 text-left">
-                        <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-send fa-fw"></i> SEND EMAIL</button>
+                        <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-send fa-fw"></i> MESAJI GÖNDER</button>
                     </div>
                 </form>
 
