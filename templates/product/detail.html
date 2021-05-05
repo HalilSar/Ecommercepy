@@ -156,24 +156,31 @@
                             <div id="reviews" class="tab-pane fade">
 
                                 <div class="reviews-list">
-                                    {% for rs in comments %}
+                                    {% if comments %}
+                                        {% for rs in comments %}
+                                            <div class="media">
+
+                                                <a class="media-left" href="#">
+                                                    <img alt="" class="img-circle avatar" src="images/team/thumb8_40.jpg">
+                                                </a>
+                                                <div><b>{{ rs.subject }}</b> </div>
+                                                <div class="media-body">
+                                                    <p class="pull-right"><small><i class="fa fa-star{% if rs.rate < 1 %}-o empty{% endif %}"></i>
+                                                        <i class="fa fa-star{% if rs.rate < 2 %}-o empty{% endif %}"></i>
+                                                        <i class="fa fa-star{% if rs.rate < 3 %}-o empty{% endif %}"></i>
+                                                        <i class="fa fa-star{% if rs.rate < 4 %}-o empty{% endif %}"></i>
+                                                        <i class="fa fa-star{% if rs.rate < 5 %}-o empty{% endif %}"></i></small></p>
+                                                    <h4 class="media-heading">{{ rs.user.first_name }}{{rs.user.username}} <small>{{ rs.create_at}}</small></h4>
+                                                    {{ rs.comment }}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
                                     <div class="media">
 
-                                        <a class="media-left" href="#">
-                                            <img alt="" class="img-circle avatar" src="images/team/thumb8_40.jpg">
-                                        </a>
-                                        <div><b>{{ rs.subject }}</b> </div>
-                                        <div class="media-body">
-                                            <p class="pull-right"><small><i class="fa fa-star{% if rs.rate < 1 %}-o empty{% endif %}"></i>
-                                                <i class="fa fa-star{% if rs.rate < 2 %}-o empty{% endif %}"></i>
-                                                <i class="fa fa-star{% if rs.rate < 3 %}-o empty{% endif %}"></i>
-                                                <i class="fa fa-star{% if rs.rate < 4 %}-o empty{% endif %}"></i>
-                                                <i class="fa fa-star{% if rs.rate < 5 %}-o empty{% endif %}"></i></small></p>
-                                            <h4 class="media-heading">{{ rs.user.first_name }}{{rs.user.username}} <small>{{ rs.create_at}}</small></h4>
-                                            {{ rs.comment }}
-                                        </div>
+                                        <h1>Henüz Yorum Yapılmamış Ki Bu Ürüne</h1>
                                     </div>
-                                    {% endfor %}
+                                    {% endif %}
                                     <div class="media">
 
                                         <a class="media-left" href="#">

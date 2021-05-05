@@ -10,7 +10,7 @@
     <title>{% block title %} Django Project {% endblock %}</title>
     <meta name="keywords" content="{% block keywords %} Home Keywords {% endblock %}">
     <meta name="description" content="{% block description %} Home description  {% endblock %}">
-    <link rel="shortcut icon" href="images/favicon.png"/>
+    <link rel="shortcut icon" href="images/favicon.png" />
     {%block favicon%}{%endblock%}
     <!-- LOAD MAIN CSS -->
     <link href="{%static 'edura/style.css'%}" rel="stylesheet" type="text/css">
@@ -27,10 +27,31 @@
 </head>
 
 <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+    <!-- jQuery UI !-->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <div class="row">
+        <script>
+            $(function() {
+                $("#query").autocomplete({
+                    source: "/search_auto/",
+                    select: function (event, ui) { //item selected
+                        AutoCompleteSelectHandler(event, ui)
+                    },
+                    minLength: 2,
+                });
+            });
+            function AutoCompleteSelectHandler(event, ui)
+            {
+                var selectedObj = ui.item;
+            }
+        </script>
 
     {% include 'partials/_navbar.html' %}
     {%if page%}
-        {% block sidebar %} {% endblock %}
+    {% block sidebar %} {% endblock %}
     {%endif%}
     <main>
         {% include 'partials/_alert.html' %}
@@ -45,10 +66,12 @@
             <div class="container text-white">
                 <div class="row">
                     <div class="col-md-10">
-                        <h1>More than <b class="counter">100</b> happy clients! <small class="text-white">Are you interested?</small></h1>
+                        <h1>More than <b class="counter">100</b> happy clients! <small class="text-white">Are you
+                                interested?</small></h1>
                     </div>
                     <div class="col-md-2 text-center">
-                        <button type="submit" class="btn btn-primary btn-lg margin15 text-uppercase">Join Us Now</button>
+                        <button type="submit" class="btn btn-primary btn-lg margin15 text-uppercase">Join Us
+                            Now</button>
                     </div>
                 </div>
             </div>
@@ -58,7 +81,7 @@
     <!-- {% block footer %} Footer {% endblock %} -->
 
     {% include 'partials/_footer.html' %}
-    <script src="{%static 'edura/vendor/jquery/jquery.min.js'%}"></script>
+    <!-- <script src="{%static 'edura/vendor/jquery/jquery.min.js'%}"></script> -->
 
     <script src="{%static 'edura/vendor/bootstrap/js/bootstrap.min.js'%}"></script>
     <script src="{%static 'edura/vendor/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js'%}"></script>
@@ -70,7 +93,7 @@
     <script src="{%static 'edura/vendor/counterup/jquery.counterup.min.js'%}"></script>
 
 
-    <!-- HERO SLIDER--> 
+    <!-- HERO SLIDER-->
     <script src="{%static 'edura/vendor/hero-slider/js/modernizr.js'%}"></script>
     <script src="{%static 'edura/vendor/hero-slider/js/main.js'%}"></script>
 

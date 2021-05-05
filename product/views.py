@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -13,7 +14,7 @@ def index(request):
     categories =Category.objects.all()
     settings = Setting.objects.get(pk=1)
     # query = request.GET.get('q')
-    # if query:
+    # if query:  {% url 'detail' product.id/product.slug %}
     #     product_list = product_list.filter(
     #         Q(title__icontains=query) |
     #         Q(description__icontains=query) 
@@ -27,7 +28,7 @@ def index(request):
         'categories' : categories,
         'settings': settings,
     }
-    return render(request, 'product/search.html',context)
+    return render(request, 'product/index.html',context)
     
 
 def GetById(request,product_id,slug):
@@ -35,7 +36,7 @@ def GetById(request,product_id,slug):
     settings= Setting.objects.get(pk=1)
     images = Images.objects.filter(product_id=product_id)                                                                                                                                  
     relatedproducts = Product.objects.select_related('category')
-    comments = Comment.objects.all()# Trur olmayanları getirmemeiz gerekir,status='True'
+    comments = Comment.objects.filter(product_id=product_id)# Trur olmayanları getirmemeiz gerekir,status='True'
     context = {
         'product':product,      
         'settings':settings,
@@ -84,15 +85,36 @@ def addcomment(request,id):
 
    return HttpResponseRedirect(url)
 
-def search(request):
+def product_search(request):
     if request.method == 'POST': # check post
         form = SearchForm(request.POST)
         if form.is_valid():
-            query = form.cleaned_data['query']
-            category = Category.objects.all()
-            products=Product.objects.filter(title__icontains=query)
-            context = {'products': products, 'query':query,
-                        'category': category }
+            query = form.cleaned_data['query'] # get form input data
+            # catid = form.cleaned_data['catid']
+            categories = Category.objects.all()
+            # if catid==0:
+            #     products=Product.objects.filter(title__icontains=query)  #SELECT * FROM product WHERE title LIKE '%query%' ,category_id=catid
+            # else:
+            products = Product.objects.filter(title__icontains=query)
+            context = {'products': products, 'query':query, 'categories':categories }
             return render(request, 'product/search.html', context)
+        else:
+            return HttpResponse(form.errors)
     return HttpResponseRedirect('/')
     
+
+def search_auto(request):
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        products = Product.objects.filter(title__icontains=q)
+
+        results = []
+        for rs in products:
+            product_json = {}
+            product_json = rs.title 
+            results.append(product_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)

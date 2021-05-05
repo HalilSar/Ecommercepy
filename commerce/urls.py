@@ -41,6 +41,8 @@ urlpatterns = [
     path('product/<int:product_id>/<slug:slug>', productviews.GetById, name= 'productdetail'),
     path('logout/', views.logout_view, name= 'logout'),
     path('signup/', views.signup_view, name= 'signup_view'),
+    path('search/', productviews.product_search, name= 'product_search'),
+    path('search_auto/', productviews.search_auto, name='search_auto'),
 ]
 
 if settings.DEBUG:

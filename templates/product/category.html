@@ -31,15 +31,15 @@
 
     <section id="shop" class="container">
 
-        <div class="row">
-
+        
             <!-- sidebar start -->
             <div id="sidebar" class="col-md-3">
 
                 <div class="widget">
-                    <form class="form-inline">
+                    <form action="/search/" class="form-inline" method="POST" >
+                        {%csrf_token%}
                         <div class="input-group">
-                            <input type="text" class="form-control input-lg" placeholder="Search...">
+                            <input id="query" type="text" name="query" class="form-control input-lg" placeholder="Arama Yapın">
                             <span class="input-group-btn">
                                 <button class="btn btn-default btn-lg" type="submit"><i class="fa fa-search"></i></button>
                             </span>
@@ -165,12 +165,12 @@
                                     <img alt="" class="img-responsive" src="{{rs.image.url}}">
                                     <div class="mask"></div>
                                     <ul class="list-unstyled list-inline">
-                                        <li><a href="#"><i class="fa fa-link fa-fw"></i></a></li>
+                                        <li><a href="/detail/{{rs.id}}/"><i class="fa fa-link fa-fw"></i></a></li>
                                         <li><a href="{% url 'addtocart' rs.id  %}"><i class="fa fa-cart-plus fa-fw"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product-item-inner">
-                                    <h3 class="product-title"><a href="#">{{ rs.title }}</a></h3>
+                                    <h3 class="product-title"><a href="/detail/rs.id">{{ rs.title }}</a></h3>
                                     <p class="product-price">{{rs.price}}</p>
                                 </div>
                             </div>

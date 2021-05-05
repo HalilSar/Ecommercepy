@@ -87,7 +87,7 @@ def signup_view(request):
             # return HttpResponse("Üye Kaydedildi.")
             data=UserProfile()
             data.user_id=current_user.id
-            data.image="image/users/admin.png"
+            data.image="images/users/admin.png"
             data.save()
             return HttpResponseRedirect('/')
         else:
