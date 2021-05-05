@@ -7,14 +7,17 @@ from django.contrib.auth import logout,authenticate,login
 from .form import SignUpForm
 from django.http import HttpResponse,HttpResponseRedirect
 from order.models import ShopCart
-
+from content.models import Content, Menu, CImages
 def Index(request):
     current_user=request.user
     settings=Setting.objects.get(id=1)
     sliderdata = Product.objects.all()[:4]
     request.session['cart_items'] = ShopCart.objects.filter(user_id= current_user.id).count()
+    menu = Menu.objects.all()  # E ticaret dışı
+    news = Content.objects.filter(type='haber').order_by('-id')[:2]  # E ticaret dışı
+    announcement=  Content.objects.filter(type='duyuru').order_by('-id')[:2]  # E ticaret dışı
     context = {
-        'settings':settings, 'sliderdata':sliderdata, 'page': 'home'
+        'settings':settings, 'sliderdata':sliderdata,'news':news,'announcement':announcement, 'page': 'home', 'menu':menu
     }
     return render(request,'home/home.html',context)
 def aboutus(request):
@@ -93,6 +96,24 @@ def signup_view(request):
     settings=Setting.objects.get(id=1)
     context={'settings':settings, 'form': form }
     return render(request, 'home/signup.html',context)
-        
+# Eticaret dışı
+def menu(request,id):
+    content=Content.objects.get(menu_id = id)
+    if content:
+        link =  'content/'+ str(content.d)       
+        return HttpResponseRedirect(link)
+    else:
+        link ='/'
+        return HttpResponseRedirect(link)
+
+def contentdetail(request,id,slug):
+    menu= Menu.objects.all()
+    content= Content.objects.get(pk=id)
+    images = CImages.objects.filter(content_id= id)
+    context = {
+        'menu':menu, 'content':content, 'images':images
+    }
+    return render(request,'content_detail.html',context)
 
 
+# Content olan haber, içerik ve yorum...
